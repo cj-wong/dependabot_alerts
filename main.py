@@ -7,6 +7,8 @@ packages are listed as in-line comments. (e.g. bs4 comes from beautifulsoup4.)
 """
 
 import bs4  # Package: beautifulsoup4
+import eyed3
+import feedgen
 import flask
 import flask_restful
 import lxml
