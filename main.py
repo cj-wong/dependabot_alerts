@@ -6,6 +6,7 @@ Some packages do not have 1:1 matching names on PyPI; for those, their actual
 packages are listed as in-line comments. (e.g. bs4 comes from beautifulsoup4.)
 """
 
+import ansible
 import bs4  # Package: beautifulsoup4
 import eyed3
 import feedgen
@@ -16,3 +17,6 @@ import more_itertools
 import pendulum
 import requests
 import yaml  # Package: pyyaml
+
+# Non-importable modules
+# Package: ansible-lint
