@@ -9,3 +9,7 @@
         print $2
     }
 }
+
+/^# Package:/ {
+    print $3
+}
