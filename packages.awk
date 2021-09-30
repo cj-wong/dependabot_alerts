@@ -1,4 +1,4 @@
-#!/usr/bin/env awk
+#!/usr/bin/env awk -f
 #
 # Get all packages in main.py.
 
