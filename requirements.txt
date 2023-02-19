@@ -1,6 +1,6 @@
 aniso8601==9.0.1
-ansible==7.0.0
-ansible-core==2.12.1
+ansible==7.2.0
+ansible-core==2.14.2
 ansible-lint==5.3.1
 beautifulsoup4==4.10.0
 bracex==2.2.1
