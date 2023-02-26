@@ -57,11 +57,14 @@ if [[ -d venv ]]; then
     fi
 fi
 
-packages=()
-
-while read -r package; do
-    packages+=("$package")
-done < <(awk -f packages.awk main.py)
+packages=(
+    "ansible==7.2.0"
+    "ansible-lint==5.3.1"
+    "eyed3==0.9.5"
+    "more-itertools==8.12.0"
+    "pendulum==2.1.2"
+    "requests==2.26.0"
+)
 
 python3 -m venv venv
 # shellcheck disable=SC1091
