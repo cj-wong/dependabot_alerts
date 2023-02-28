@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.4.0] - 2023-02-28
+### Changed
+- Contained dependency groups into `environments`, grouped by purpose or usage. This was done to eliminate the chance of commingling of extant dependencies.
+
 ## [0.3.0] - 2023-02-26
 ### Added
 - Added `asdf-vm` management for Python version (currently 3.9.x). This version represents the minimum Python version I use in all my projects.
