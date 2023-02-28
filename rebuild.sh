@@ -3,7 +3,6 @@
 # Rebuild requirements.txt using packages listed in main.py.
 #
 # Exits:
-#   1: script was not run in its directory
 #   2: user did not accept prompt
 #   3: venv was active but could not be deactivated (e.g. conda conflict)
 
@@ -28,11 +27,52 @@ function prompt_user() {
     fi
 }
 
-src_dir=$(dirname "$0")
-if [[ "$src_dir" != "$PWD" && "$src_dir" != "." ]]; then
-    echo "Please run this script in its directory." >&2
-    exit 1
-fi
+# Install packages in environment.
+#
+# Globals:
+#   None
+# Arguments:
+#   $1: directory containing environment
+# Returns:
+#   0: install succeeded
+#   1: package.txt missing
+#   2: virtual env could not be created; something is wrong with the Python
+#      installation
+#   3: virtual env is missing a functional activate script
+function install_env() {
+    local env="$1"
+    local packages="${env}/packages.txt"
+    local venv="${env}/.venv"
+
+    if [[ ! -d "$env" ]]; then
+        return 10
+    elif [[ ! -f "$packages" ]]; then
+        echo "packages.txt is missing" >&2
+        return 1
+    elif ! python3 -m venv "$venv"; then
+        echo "Couldn't create virtual environment for ${env}" >&2
+        echo "The command is normally idempotent so something is wrong with "\
+             "your Python installation." >&2
+        return 2
+    fi
+
+    # shellcheck disable=SC1091
+    # The activation script only exists conditionally.
+    if ! . "${venv}/bin/activate"; then
+        echo "The virtual env is missing critical files" >&2
+        return 3
+    fi
+
+    while read -r package; do
+        pip install "$package"
+    done < "${env}/packages.txt"
+
+    pip freeze > "${env}/requirements.txt"
+
+    deactivate
+}
+
+src_dir=$(dirname "${BASH_SOURCE[0]}")
 
 if [[ -n "$VIRTUAL_ENV" ]]; then
     echo "You have a virtual environment already active."
@@ -49,27 +89,8 @@ if [[ -n "$VIRTUAL_ENV" ]]; then
     fi
 fi
 
-if [[ -d venv ]]; then
-    echo "venv already exists. It must be removed to continue."
-    if prompt_user "Remove it?"; then
-        rm -r venv
-        echo "venv removed."
+for env in "${src_dir}/environments"/*; do
+    if ! install_env "$env"; then
+        echo "Skipping ${env}" >&2
     fi
-fi
-
-packages=(
-    "ansible==7.2.0"
-    "ansible-lint==5.3.1"
-    "eyed3==0.9.5"
-    "more-itertools==8.12.0"
-    "pendulum==2.1.2"
-    "requests==2.26.0"
-)
-
-python3 -m venv venv
-# shellcheck disable=SC1091
-# The activation script only exists conditionally.
-. venv/bin/activate
-
-pip install "${packages[@]}"
-pip freeze > requirements.txt
+done
