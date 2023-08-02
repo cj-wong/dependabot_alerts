@@ -3,7 +3,7 @@ ansible-core==2.14.3
 ansible-lint==5.3.1
 bracex==2.3.post1
 cffi==1.15.1
-cryptography==41.0.0
+cryptography==41.0.3
 enrich==1.2.7
 Jinja2==3.1.2
 markdown-it-py==2.2.0
