@@ -3,9 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.4.2] - 2024-02-22
+### Security
+- Updated `ansible` environment.
+
 ## [0.4.1] - 2024-02-18
 ### Security
-- Update multiple `dependabot` alerts. (`ansible`, `requests`)
+- Updated multiple `dependabot` alerts. (`ansible`, `requests`)
 
 ## [0.4.0] - 2023-02-28
 ### Changed
