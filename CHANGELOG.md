@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.5.0] - 2025-04-07
+### Changed
+- Replaced `ansible` environment with `automation`. It now uses `uv` for dependency management.
+
 ## [0.4.2] - 2024-02-22
 ### Security
 - Updated `ansible` environment.
